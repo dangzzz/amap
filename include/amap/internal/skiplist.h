@@ -202,7 +202,7 @@ void SKIPLIST_NAME(free)(SL_LIST *list);
  *          overwritten.
  */
 SKIPLIST_EXTERN
-short SKIPLIST_NAME(insert)(SL_LIST *list, SL_KEY key, SL_VAL val, SL_VAL *prior);
+void* SKIPLIST_NAME(insert)(SL_LIST *list, SL_KEY key, SL_VAL val, SL_VAL *prior);
 
 /* Gets a value associated with a key.
  * @list An initialized skiplist
@@ -333,7 +333,7 @@ void SKIPLIST_NAME(free)(SL_LIST *list) {
 }
 
 SKIPLIST_EXTERN
-short SKIPLIST_NAME(insert)(SL_LIST *list, SL_KEY key, SL_VAL val, SL_VAL *prior) {
+void* SKIPLIST_NAME(insert)(SL_LIST *list, SL_KEY key, SL_VAL val, SL_VAL *prior) {
     SL_NODE *n, *nn, *update[SKIPLIST_MAX_LEVELS];
     int r;
     unsigned int i;
@@ -341,6 +341,7 @@ short SKIPLIST_NAME(insert)(SL_LIST *list, SL_KEY key, SL_VAL val, SL_VAL *prior
 
     n = list->head;
     nn = (SL_NODE *)SKIPLIST_MALLOC(list->mem_udata, sizeof(SL_NODE));
+    //printf("nn is %lld",nn);
     nn->key = key;
     nn->val = val;
     memset(nn->next, 0, SKIPLIST_MAX_LEVELS * sizeof(SL_NODE *));
@@ -379,7 +380,7 @@ short SKIPLIST_NAME(insert)(SL_LIST *list, SL_KEY key, SL_VAL val, SL_VAL *prior
 
     list->size += !replaced;
 
-    return replaced;
+    return (!replaced)?&nn->val:NULL;
 }
 
 SKIPLIST_EXTERN

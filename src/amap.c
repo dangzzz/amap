@@ -39,9 +39,9 @@ amap_find(intptr_t key)
     return ret;
 }
 
-void 
+void* 
 amap_insert(intptr_t key,intptr_t val)
 {   
     slt_skiplist *sl = partition(key);
-    slt_insert(sl,key,val,NULL);
+    return slt_insert(sl,key,val,NULL);
 }

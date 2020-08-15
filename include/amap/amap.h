@@ -9,7 +9,7 @@ void amap_init(void *start,void *end,size_t interval);
 
 void *amap_find(intptr_t key);
 
-void amap_insert(intptr_t key,intptr_t val);
+void *amap_insert(intptr_t key,intptr_t val);
 
 
 #ifdef __cplusplus

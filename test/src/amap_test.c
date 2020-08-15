@@ -18,7 +18,8 @@ int main(){
     }
     amap_init((void *)((intptr_t)addr[1])-250*1500,(void *)((intptr_t)addr[1])+250*1500,25000);
     for(int i = 0;i<1000;i++){
-        amap_insert(addr[i],addr[i]+1);
+        void *tmp = amap_insert(addr[i],addr[i]+1);
+         printf("value address: %lld.  ",tmp);
     }
     
     for(int i = 0;i<100;i++){
